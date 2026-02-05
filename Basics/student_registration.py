@@ -7,7 +7,7 @@ while True:
     if choice == "1":
         name = input("Name: ").strip()
         if name in registered:
-            print("Already registered")
+            print("The user is already registered")
         else:
             registered.add(name)
             print("Registered")
