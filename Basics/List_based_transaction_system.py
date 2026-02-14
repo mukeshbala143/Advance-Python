@@ -1,6 +1,27 @@
 balance = 0
 transactions = []
+password = "@Kai" 
 
+while True:
+    passw = input("Enter your password to access the transaction system: ")
+    if passw == password:
+        print("Access granted.")
+        break
+    else:
+        print("Incorrect password. 2 Attempts remaining.")
+    passw = input("Enter your password to access the transaction system: ")
+    if passw == password:
+        print("Access granted.")
+        break
+    else:
+        print("Incorrect password. 1 Attempt remaining.")
+    passw = input("Enter your password to access the transaction system: ")
+    if passw == password:
+        print("Access granted.")
+        break
+    else:
+        print("Access denied. Exiting the system.")
+        exit()
 while True:
     print("\nMenu:")
     print("1. Deposit")
@@ -14,20 +35,20 @@ while True:
         amount = float(input("Enter deposit amount: "))
         if amount > 0:
             balance += amount
-            transactions.append(f"Deposited: ${amount:.2f}")
-            print(f"${amount:.2f} deposited successfully.")
+            transactions.append(f"Deposited: Rs.{amount:.2f}")
+            print(f"Rs.{amount:.2f} deposited successfully.")
         else:
             print("Invalid amount. Please enter a positive number.")
     elif choice == '2':
         amount = float(input("Enter withdrawal amount: "))
         if 0 < amount <= balance:
             balance -= amount
-            transactions.append(f"Withdrew: ${amount:.2f}")
-            print(f"${amount:.2f} withdrawn successfully.")
+            transactions.append(f"Withdrew: Rs.{amount:.2f}")
+            print(f"Rs{amount:.2f} withdrawn successfully.")
         else:
             print("Invalid amount. Please enter a positive number not exceeding your balance.")
     elif choice == '3':
-        print(f"Current balance: ${balance:.2f}")
+        print(f"Current balance: Rs.{balance:.2f}")
     elif choice == '4':
         if transactions:
             print("Transaction History:")
@@ -36,7 +57,7 @@ while True:
         else:
             print("No transactions yet.")
     elif choice == '5':
-        print("Exiting the system.")
+        print("Exiting the system. 안녕히 가세요!")
         break
     else:
         print("Invalid choice. Please select a valid option.")
