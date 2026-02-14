@@ -1,63 +1,88 @@
 balance = 0
 transactions = []
-password = "@Kai" 
+password = 'RCB12@@1'
+
+def validate_password(p):
+    return p == password
+
+def take_pass():
+    return input("Enter your password: ")
+
+def deposit():
+    global balance
+    try:
+        amt = int(input("Enter Deposit Amount: "))
+        if amt <= 0:
+            print("Enter valid amount")
+            return
+        balance += amt
+        transactions.append("Deposit: " + str(amt))
+        print("Amount credited successfully")
+    except:
+        print("Invalid input")
+
+def withdraw():
+    global balance
+    try:
+        amt = int(input("Enter Withdraw Amount: "))
+        if amt <= 0:
+            print("Enter valid amount")
+            return
+        if balance < amt:
+            print("Not enough balance")
+        else:
+            balance -= amt
+            transactions.append("Withdraw: " + str(amt))
+            print("Amount debited successfully")
+    except:
+        print("Invalid input")
+
+def print_transactions():
+    print("\nTransaction History:")
+    if not transactions:
+        print("No transactions yet")
+    else:
+        for t in transactions:
+            print(t)
 
 while True:
-    passw = input("Enter your password to access the transaction system: ")
-    if passw == password:
-        print("Access granted.")
-        break
-    else:
-        print("Incorrect password. 2 Attempts remaining.")
-    passw = input("Enter your password to access the transaction system: ")
-    if passw == password:
-        print("Access granted.")
-        break
-    else:
-        print("Incorrect password. 1 Attempt remaining.")
-    passw = input("Enter your password to access the transaction system: ")
-    if passw == password:
-        print("Access granted.")
-        break
-    else:
-        print("Access denied. Exiting the system.")
-        exit()
-while True:
-    print("\nMenu:")
-    print("1. Deposit")
-    print("2. Withdraw")
-    print("3. Check Balance")
-    print("4. View Transactions")
-    print("5. Exit")
-    choice = input("Choose an option (1-5): ")
+    input_pass = take_pass()
 
-    if choice == '1':
-        amount = float(input("Enter deposit amount: "))
-        if amount > 0:
-            balance += amount
-            transactions.append(f"Deposited: Rs.{amount:.2f}")
-            print(f"Rs.{amount:.2f} deposited successfully.")
+    if validate_password(input_pass):
+        print("\nWelcome! Choose an option:")
+        print("0. Reset Password")
+        print("1. Deposit")
+        print("2. Withdraw")
+        print("3. Check Balance")
+        print("4. Transaction History")
+        print("5. Exit")
+
+        try:
+            choice = int(input("Enter your choice: "))
+        except:
+            print("Invalid input")
+            continue
+
+        if choice == 0:
+            old = take_pass()
+            if validate_password(old):
+                password = input("Enter new password: ")
+                print("Password updated")
+            else:
+                print("Wrong password")
+        elif choice == 1:
+            deposit()
+        elif choice == 2:
+            withdraw()
+        elif choice == 3:
+            print("Available Balance:", balance)
+        elif choice == 4:
+            print_transactions()
+        elif choice == 5:
+            print("Thanks for using the system")
+            break
         else:
-            print("Invalid amount. Please enter a positive number.")
-    elif choice == '2':
-        amount = float(input("Enter withdrawal amount: "))
-        if 0 < amount <= balance:
-            balance -= amount
-            transactions.append(f"Withdrew: Rs.{amount:.2f}")
-            print(f"Rs{amount:.2f} withdrawn successfully.")
-        else:
-            print("Invalid amount. Please enter a positive number not exceeding your balance.")
-    elif choice == '3':
-        print(f"Current balance: Rs.{balance:.2f}")
-    elif choice == '4':
-        if transactions:
-            print("Transaction History:")
-            for transaction in transactions:
-                print(transaction)
-        else:
-            print("No transactions yet.")
-    elif choice == '5':
-        print("Exiting the system. 안녕히 가세요!")
-        break
+            print("Invalid choice")
+
     else:
-        print("Invalid choice. Please select a valid option.")
+        print("Wrong password\n")
